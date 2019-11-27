@@ -8,6 +8,9 @@ pipeline {
                     echo "Multiline shell steps works too"
                     ls -lah
                     '''
+                withAWS(region:'us-east-2') {
+                // do something
+                }               
             }
         }
     }
