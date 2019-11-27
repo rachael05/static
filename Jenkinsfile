@@ -3,15 +3,14 @@ pipeline {
     stages {
         stage('Upload to AWS') {
             steps {
+            withAWS(region:'us-east-2',credentials:'aws-static') {
+                 sh 'echo "Uploading content with AWS creds"'
+                     s3Upload(pathStyleAccessEnabled: true, payloadSigningEnabled: true, file:'index.html', bucket:'jenkinsproject1'
                 sh 'echo "Hello World"'
                 sh '''
                     echo "Multiline shell steps works too"
                     ls -lah
                     '''
-                withAWS(region:'us-east-2') {
-                // do something
-                s3Download(file:'file.txt', bucket:'jenkinsproject1', path:'path/to/source/file.txt', force:true)
-                s3Download(file:'targetFolder/', bucket:'jenkinsproject1', path:'path/to/sourceFolder/', force:true)
                 }               
             }
         }
